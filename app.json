@@ -1,0 +1,13 @@
+{
+  "expo": {
+    "name": "PT Golden IB",
+    "slug": "pt-golden-ib",
+    "scheme": "ptgoldenib",
+    "web": {
+      "bundler": "metro"
+    },
+    "plugins": [
+      "expo-router"
+    ]
+  }
+}

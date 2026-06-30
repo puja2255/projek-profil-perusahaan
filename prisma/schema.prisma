@@ -1,0 +1,71 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model CompanyProfile {
+  id           Int      @id @default(autoincrement())
+  name         String
+  tagline      String
+  description  String
+  logoUrl      String
+  heroImageUrl String
+  phone        String
+  email        String
+  address      String
+  instagramUrl String
+  whatsappUrl  String
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+}
+
+model Product {
+  id          Int      @id @default(autoincrement())
+  name        String
+  description String
+  imageUrl    String
+  price       Decimal  @db.Decimal(12, 2)
+  marketLinks Json
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model Activity {
+  id          Int      @id @default(autoincrement())
+  title       String
+  description String
+  imageUrl    String
+  date        String
+  location    String?
+  gallery     Json?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model Partner {
+  id          Int      @id @default(autoincrement())
+  name        String
+  description String
+  logoUrl     String
+  socialLinks Json
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model OrganizationMember {
+  id        Int                    @id @default(autoincrement())
+  name      String
+  role      String
+  photoUrl  String?
+  level     Int                    @default(1)
+  order     Int                    @default(0)
+  parentId  Int?
+  parent    OrganizationMember?    @relation("OrgTree", fields: [parentId], references: [id], onDelete: SetNull)
+  children  OrganizationMember[]   @relation("OrgTree")
+  createdAt DateTime               @default(now())
+  updatedAt DateTime               @updatedAt
+}
